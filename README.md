@@ -143,9 +143,27 @@ npm run seed
 
 ## 📚 API Documentation
 
-Detailed API documentation is available via Swagger UI:
-- **Local**: http://localhost:3000/api-docs
-- **JSON Spec**: http://localhost:3000/api-docs.json
+- **Interactive Swagger UI**: http://localhost:3001/api-docs
+- **Detailed API Guide**: [docs/API.md](docs/API.md)
+- **Performance Benchmarks**: [docs/PERFORMANCE.md](docs/PERFORMANCE.md)
+- **Health Check Endpoint**: http://localhost:3001/health
+
+### Key API Endpoints
+- `POST /api/auth/register` - User registration
+- `POST /api/auth/login` - User authentication  
+- `GET /api/auth/profile` - Get user profile
+- `POST /api/rooms` - Create chat room
+- `GET /api/rooms` - Get user's rooms
+- `POST /api/rooms/:id/join` - Join room
+- `POST /api/messages` - Send message
+- `GET /api/messages/room/:id` - Get room messages
+
+### WebSocket Events
+- `join_room` - Join a chat room
+- `send_message` - Send real-time message
+- `new_message` - Receive new messages
+- `typing_start/stop` - Typing indicators
+- `user_joined/left` - Room activity notifications
 
 ## 🔐 Authentication
 
@@ -227,19 +245,279 @@ docker-compose ps
 - `room_activities` - Log room activities
 - `message_logging` - Archive messages
 
-## 🧪 Testing
+## 🔐 SSL/TLS Configuration
 
+### Automated SSL Setup
 ```bash
-# Run tests (when implemented)
-npm test
+# Generate self-signed certificates for development
+npm run ssl:setup
 
-# Test API endpoints
-curl -X POST http://localhost:3000/api/auth/register \
-  -H "Content-Type: application/json" \
-  -d '{"username":"testuser","email":"test@example.com","password":"password123","firstName":"Test","lastName":"User"}'
+# Generate for specific domain
+npm run ssl:setup -- --domain api.example.com
 ```
 
+### Production SSL (Let's Encrypt)
+```bash
+# Install certbot
+sudo apt-get install certbot python3-certbot-nginx
+
+# Generate certificate
+sudo certbot --nginx -d yourdomain.com
+
+# Test auto-renewal
+sudo certbot renew --dry-run
+```
+
+## 💾 Database Backup & Recovery
+
+### Automated Backup System
+```bash
+# Create manual backup
+npm run backup:create
+
+# Create scheduled backup
+npm run backup:create daily
+
+# List all backups
+npm run backup:list
+
+# Restore from backup
+npm run backup:restore ./backups/chatdb-manual-2025-06-04.gz
+
+# Cleanup old backups
+npm run backup:cleanup
+
+# Start automated backup scheduler
+npm run backup:schedule
+
+# Check backup system status
+node scripts/backup.js status
+
+# Verify backup integrity
+node scripts/backup.js verify ./backups/chatdb-manual-2025-06-04.gz
+```
+
+### Backup Schedule
+- **Daily**: 2 AM automatically
+- **Retention**: 7 days by default
+- **Location**: `./backups/` directory
+- **Format**: Compressed MongoDB archives (.gz)
+
+## 📊 Advanced Monitoring & Alerting
+
+### Real-time Monitoring
+```bash
+# Start advanced monitoring system
+npm run monitor
+
+# Start dashboard (alternative)
+npm run monitor:dashboard
+
+# Custom interval monitoring
+node scripts/monitoring.js --interval 60000
+```
+
+### Alert Configuration
+```bash
+# Email alerts (set environment variables)
+export EMAIL_ALERTS=true
+export SMTP_HOST=smtp.gmail.com
+export SMTP_USER=your-email@gmail.com
+export SMTP_PASS=your-app-password
+export ALERT_TO_EMAIL=admin@yourcompany.com
+
+# Webhook alerts
+export WEBHOOK_ALERTS=true
+export WEBHOOK_URL=https://hooks.slack.com/services/...
+export WEBHOOK_SECRET=your-secret
+
+# Start monitoring with alerts
+npm run monitor
+```
+
+### Monitoring Features
+- **Real-time Dashboard**: Live service status and metrics
+- **Email Alerts**: Critical service failures and warnings
+- **Webhook Integration**: Slack/Discord/Teams notifications
+- **Metrics Persistence**: Historical data storage
+- **Alert Cooldown**: Prevents spam notifications
+- **System Metrics**: Memory, CPU, response times
+- **Service Health**: Endpoint availability monitoring
+
+## 🚀 CI/CD Pipeline
+
+### GitHub Actions
+The project includes a comprehensive CI/CD pipeline with:
+
+- **Code Quality**: ESLint, Prettier, TypeScript checking
+- **Security**: Vulnerability scanning, license checking
+- **Testing**: Unit tests, integration tests, health checks
+- **Docker**: Multi-stage builds, security scanning
+- **Performance**: Load testing with k6
+- **Deployment**: Automated staging and production deployment
+
+### Pipeline Stages
+1. **Quality**: Lint, format, type-check, security audit
+2. **Test**: Comprehensive API and WebSocket testing
+3. **Docker**: Build and security scan
+4. **Performance**: Load testing (main branch only)
+5. **Deploy**: Staging (develop) and Production (main)
+6. **Notify**: Success/failure notifications
+
+### Setup GitHub Actions
+1. Create repository secrets:
+   ```
+   CODECOV_TOKEN
+   SMTP_HOST, SMTP_USER, SMTP_PASS
+   WEBHOOK_URL, WEBHOOK_SECRET
+   ```
+
+2. Configure environments:
+   - `staging` environment for develop branch
+   - `production` environment for main branch
+
+## ☸️ Kubernetes Deployment
+
+### Prerequisites
+```bash
+# Install kubectl
+curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+
+# Install helm
+curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+
+# Install cert-manager for SSL
+kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.13.0/cert-manager.yaml
+```
+
+### Deploy to Kubernetes
+```bash
+# Create namespace and deploy
+kubectl apply -f k8s/production.yaml
+
+# Check deployment status
+kubectl get pods -n chat-api
+kubectl get services -n chat-api
+kubectl get ingress -n chat-api
+
+# Scale deployment
+kubectl scale deployment chat-api --replicas=5 -n chat-api
+
+# View logs
+kubectl logs -f deployment/chat-api -n chat-api
+
+# Port forward for testing
+kubectl port-forward service/chat-api-service 8080:80 -n chat-api
+```
+
+### Update Secrets
+```bash
+# Update MongoDB URI
+kubectl create secret generic chat-api-secrets \
+  --from-literal=mongodb-uri="mongodb://admin:password@mongo-service:27017/chatdb?authSource=admin" \
+  --namespace=chat-api --dry-run=client -o yaml | kubectl apply -f -
+
+# Update JWT secret
+kubectl patch secret chat-api-secrets -n chat-api \
+  -p='{"data":{"jwt-secret":"'$(echo -n "your-new-jwt-secret" | base64 -w 0)'"}}'
+```
+
+### Monitoring in Kubernetes
+```bash
+# Install Prometheus Operator
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+helm install monitoring prometheus-community/kube-prometheus-stack -n monitoring --create-namespace
+
+# Access Grafana
+kubectl port-forward service/monitoring-grafana 3000:80 -n monitoring
+# Default: admin/prom-operator
+
+# Access Prometheus
+kubectl port-forward service/monitoring-kube-prometheus-prometheus 9090:9090 -n monitoring
+```
+
+## 🔧 Code Quality & Standards
+
+### Linting and Formatting
+```bash
+# Run ESLint
+npm run lint
+
+# Format code with Prettier
+npm run format
+
+# Check formatting
+npm run format:check
+
+# Type checking
+npm run type-check
+
+# Generate test coverage
+npm run coverage
+```
+
+### Pre-commit Hooks (Recommended)
+```bash
+# Install husky
+npm install --save-dev husky
+
+# Setup pre-commit hooks
+npx husky install
+npx husky add .husky/pre-commit "npm run lint && npm run format:check && npm run type-check"
+npx husky add .husky/pre-push "npm run test:api"
+```
+
+## 📈 Performance Optimization
+
+### Production Optimizations
+- **Cluster Mode**: Multi-process deployment
+- **Connection Pooling**: MongoDB and Redis optimization
+- **Caching**: Redis-based response caching
+- **Rate Limiting**: API protection
+- **Compression**: Gzip response compression
+- **CDN Ready**: Static asset optimization
+
+### Scaling Strategies
+1. **Horizontal Scaling**: Multiple API instances
+2. **Database Scaling**: MongoDB replica sets
+3. **Cache Scaling**: Redis clustering
+4. **Load Balancing**: Nginx/Kubernetes ingress
+5. **Auto-scaling**: HPA based on CPU/memory
+
+## 🛡️ Security Best Practices
+
+### Implemented Security Features
+- **Helmet**: Security headers
+- **Rate Limiting**: API protection
+- **JWT Authentication**: Secure token-based auth
+- **Input Validation**: Request sanitization
+- **CORS**: Cross-origin resource sharing
+- **SSL/TLS**: Encrypted communication
+- **Environment Variables**: Secret management
+
+### Security Checklist
+- [ ] Change default passwords
+- [ ] Use strong JWT secrets
+- [ ] Enable SSL/TLS certificates
+- [ ] Configure firewall rules
+- [ ] Set up VPN access
+- [ ] Regular security updates
+- [ ] Monitor access logs
+- [ ] Backup encryption
+
 ## 🚦 Production Deployment
+
+### Automated Deployment
+```bash
+# Full production deployment with health checks
+node scripts/deploy.js deploy
+
+# Stop all services
+node scripts/deploy.js stop
+
+# Run health check only
+node scripts/deploy.js health
+```
 
 ### Docker Production
 ```bash
@@ -247,17 +525,35 @@ curl -X POST http://localhost:3000/api/auth/register \
 docker-compose -f docker-compose.prod.yml up -d
 
 # Scale API instances
-docker-compose up --scale app=3
+docker-compose -f docker-compose.prod.yml up --scale app=3 -d
+
+# Monitor with Prometheus and Grafana
+# Prometheus: http://localhost:9090
+# Grafana: http://localhost:3000 (admin/admin123)
+```
+
+### Manual Production Setup
+```bash
+# Build for production
+npm run build
+
+# Copy production environment
+cp .env.production .env
+
+# Start production server
+npm start
 ```
 
 ### Environment Considerations
-- Use strong JWT secrets
+- Use strong JWT secrets in production
 - Enable MongoDB authentication
-- Configure Redis password
-- Set up proper network security
+- Configure Redis password protection
+- Set up proper network security groups
 - Use environment-specific configurations
-- Set up monitoring and logging
-- Configure backups for data persistence
+- Set up monitoring and logging systems
+- Configure automated backups for data persistence
+- Implement SSL/TLS certificates
+- Set up log rotation and monitoring
 
 ## 🛡 Security Features
 
