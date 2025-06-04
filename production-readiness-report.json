@@ -1,0 +1,407 @@
+{
+  "timestamp": "2025-06-04T09:58:43.627Z",
+  "score": 70,
+  "summary": {
+    "passed": 30,
+    "warnings": 6,
+    "failed": 7
+  },
+  "categories": {
+    "security": {
+      "passed": 4,
+      "failed": 5,
+      "warnings": 1
+    },
+    "ssl": {
+      "passed": 2,
+      "failed": 0,
+      "warnings": 2
+    },
+    "database": {
+      "passed": 1,
+      "failed": 1,
+      "warnings": 0
+    },
+    "backup": {
+      "passed": 2,
+      "failed": 0,
+      "warnings": 1
+    },
+    "monitoring": {
+      "passed": 4,
+      "failed": 0,
+      "warnings": 0
+    },
+    "docker": {
+      "passed": 4,
+      "failed": 0,
+      "warnings": 1
+    },
+    "cicd": {
+      "passed": 6,
+      "failed": 0,
+      "warnings": 0
+    },
+    "kubernetes": {
+      "passed": 2,
+      "failed": 0,
+      "warnings": 0
+    },
+    "documentation": {
+      "passed": 5,
+      "failed": 0,
+      "warnings": 1
+    },
+    "performance": {
+      "passed": 0,
+      "failed": 1,
+      "warnings": 0
+    }
+  },
+  "details": [
+    {
+      "category": "security",
+      "name": "NODE_ENV missing",
+      "status": "fail",
+      "message": "Required environment variable not set",
+      "severity": "info",
+      "timestamp": "2025-06-04T09:58:43.546Z"
+    },
+    {
+      "category": "security",
+      "name": "MONGODB_URI missing",
+      "status": "fail",
+      "message": "Required environment variable not set",
+      "severity": "info",
+      "timestamp": "2025-06-04T09:58:43.546Z"
+    },
+    {
+      "category": "security",
+      "name": "JWT_SECRET missing",
+      "status": "fail",
+      "message": "Required environment variable not set",
+      "severity": "info",
+      "timestamp": "2025-06-04T09:58:43.546Z"
+    },
+    {
+      "category": "security",
+      "name": "REDIS_HOST missing",
+      "status": "fail",
+      "message": "Required environment variable not set",
+      "severity": "info",
+      "timestamp": "2025-06-04T09:58:43.547Z"
+    },
+    {
+      "category": "security",
+      "name": "RABBITMQ_URL missing",
+      "status": "fail",
+      "message": "Required environment variable not set",
+      "severity": "info",
+      "timestamp": "2025-06-04T09:58:43.547Z"
+    },
+    {
+      "category": "security",
+      "name": "Production Environment",
+      "status": "warn",
+      "message": "NODE_ENV is undefined, should be 'production'",
+      "severity": "info",
+      "timestamp": "2025-06-04T09:58:43.548Z"
+    },
+    {
+      "category": "security",
+      "name": "helmet installed",
+      "status": "pass",
+      "message": "Security package is installed",
+      "severity": "info",
+      "timestamp": "2025-06-04T09:58:43.549Z"
+    },
+    {
+      "category": "security",
+      "name": "express-rate-limit installed",
+      "status": "pass",
+      "message": "Security package is installed",
+      "severity": "info",
+      "timestamp": "2025-06-04T09:58:43.550Z"
+    },
+    {
+      "category": "security",
+      "name": "bcryptjs installed",
+      "status": "pass",
+      "message": "Security package is installed",
+      "severity": "info",
+      "timestamp": "2025-06-04T09:58:43.550Z"
+    },
+    {
+      "category": "security",
+      "name": "jsonwebtoken installed",
+      "status": "pass",
+      "message": "Security package is installed",
+      "severity": "info",
+      "timestamp": "2025-06-04T09:58:43.550Z"
+    },
+    {
+      "category": "ssl",
+      "name": "SSL Directory",
+      "status": "pass",
+      "message": "SSL directory exists",
+      "severity": "info",
+      "timestamp": "2025-06-04T09:58:43.551Z"
+    },
+    {
+      "category": "ssl",
+      "name": "server.crt",
+      "status": "warn",
+      "message": "SSL certificate file missing (use npm run ssl:setup)",
+      "severity": "info",
+      "timestamp": "2025-06-04T09:58:43.552Z"
+    },
+    {
+      "category": "ssl",
+      "name": "server.key",
+      "status": "warn",
+      "message": "SSL certificate file missing (use npm run ssl:setup)",
+      "severity": "info",
+      "timestamp": "2025-06-04T09:58:43.552Z"
+    },
+    {
+      "category": "ssl",
+      "name": "SSL Configuration",
+      "status": "pass",
+      "message": "SSL configuration file exists",
+      "severity": "info",
+      "timestamp": "2025-06-04T09:58:43.552Z"
+    },
+    {
+      "category": "database",
+      "name": "Database Connectivity",
+      "status": "fail",
+      "message": "Database connection failed: Request failed with status code 429",
+      "severity": "info",
+      "timestamp": "2025-06-04T09:58:43.602Z"
+    },
+    {
+      "category": "database",
+      "name": "Database Initialization",
+      "status": "pass",
+      "message": "Database init script exists",
+      "severity": "info",
+      "timestamp": "2025-06-04T09:58:43.602Z"
+    },
+    {
+      "category": "backup",
+      "name": "Backup Script",
+      "status": "pass",
+      "message": "Backup script exists",
+      "severity": "info",
+      "timestamp": "2025-06-04T09:58:43.603Z"
+    },
+    {
+      "category": "backup",
+      "name": "Backup Directory",
+      "status": "pass",
+      "message": "Backup directory exists",
+      "severity": "info",
+      "timestamp": "2025-06-04T09:58:43.603Z"
+    },
+    {
+      "category": "backup",
+      "name": "Backup Files",
+      "status": "warn",
+      "message": "No backup files found (run npm run backup:create)",
+      "severity": "info",
+      "timestamp": "2025-06-04T09:58:43.604Z"
+    },
+    {
+      "category": "monitoring",
+      "name": "monitoring.js",
+      "status": "pass",
+      "message": "Monitoring script exists",
+      "severity": "info",
+      "timestamp": "2025-06-04T09:58:43.605Z"
+    },
+    {
+      "category": "monitoring",
+      "name": "dashboard.js",
+      "status": "pass",
+      "message": "Monitoring script exists",
+      "severity": "info",
+      "timestamp": "2025-06-04T09:58:43.605Z"
+    },
+    {
+      "category": "monitoring",
+      "name": "Prometheus Config",
+      "status": "pass",
+      "message": "Prometheus configuration exists",
+      "severity": "info",
+      "timestamp": "2025-06-04T09:58:43.606Z"
+    },
+    {
+      "category": "monitoring",
+      "name": "Monitoring Directory",
+      "status": "pass",
+      "message": "Monitoring directory exists",
+      "severity": "info",
+      "timestamp": "2025-06-04T09:58:43.606Z"
+    },
+    {
+      "category": "docker",
+      "name": "Dockerfile",
+      "status": "pass",
+      "message": "Docker file exists",
+      "severity": "info",
+      "timestamp": "2025-06-04T09:58:43.607Z"
+    },
+    {
+      "category": "docker",
+      "name": "docker-compose.yml",
+      "status": "pass",
+      "message": "Docker file exists",
+      "severity": "info",
+      "timestamp": "2025-06-04T09:58:43.607Z"
+    },
+    {
+      "category": "docker",
+      "name": "docker-compose.prod.yml",
+      "status": "pass",
+      "message": "Docker file exists",
+      "severity": "info",
+      "timestamp": "2025-06-04T09:58:43.607Z"
+    },
+    {
+      "category": "docker",
+      "name": ".dockerignore",
+      "status": "pass",
+      "message": "Docker file exists",
+      "severity": "info",
+      "timestamp": "2025-06-04T09:58:43.608Z"
+    },
+    {
+      "category": "docker",
+      "name": "Multi-stage Build",
+      "status": "warn",
+      "message": "Consider using multi-stage Docker build",
+      "severity": "info",
+      "timestamp": "2025-06-04T09:58:43.608Z"
+    },
+    {
+      "category": "cicd",
+      "name": "GitHub Actions",
+      "status": "pass",
+      "message": "CI/CD pipeline exists",
+      "severity": "info",
+      "timestamp": "2025-06-04T09:58:43.609Z"
+    },
+    {
+      "category": "cicd",
+      "name": "Code Quality",
+      "status": "pass",
+      "message": "CI/CD feature implemented",
+      "severity": "info",
+      "timestamp": "2025-06-04T09:58:43.610Z"
+    },
+    {
+      "category": "cicd",
+      "name": "Testing",
+      "status": "pass",
+      "message": "CI/CD feature implemented",
+      "severity": "info",
+      "timestamp": "2025-06-04T09:58:43.610Z"
+    },
+    {
+      "category": "cicd",
+      "name": "Security Scan",
+      "status": "pass",
+      "message": "CI/CD feature implemented",
+      "severity": "info",
+      "timestamp": "2025-06-04T09:58:43.610Z"
+    },
+    {
+      "category": "cicd",
+      "name": "Docker Build",
+      "status": "pass",
+      "message": "CI/CD feature implemented",
+      "severity": "info",
+      "timestamp": "2025-06-04T09:58:43.611Z"
+    },
+    {
+      "category": "cicd",
+      "name": "Performance Test",
+      "status": "pass",
+      "message": "CI/CD feature implemented",
+      "severity": "info",
+      "timestamp": "2025-06-04T09:58:43.611Z"
+    },
+    {
+      "category": "kubernetes",
+      "name": "Production Manifests",
+      "status": "pass",
+      "message": "Kubernetes manifests exist",
+      "severity": "info",
+      "timestamp": "2025-06-04T09:58:43.612Z"
+    },
+    {
+      "category": "kubernetes",
+      "name": "K8s Environment",
+      "status": "pass",
+      "message": "Kubernetes environment config exists",
+      "severity": "info",
+      "timestamp": "2025-06-04T09:58:43.612Z"
+    },
+    {
+      "category": "documentation",
+      "name": "Installation",
+      "status": "warn",
+      "message": "Documentation section missing",
+      "severity": "info",
+      "timestamp": "2025-06-04T09:58:43.613Z"
+    },
+    {
+      "category": "documentation",
+      "name": "API Documentation",
+      "status": "pass",
+      "message": "Documentation section exists",
+      "severity": "info",
+      "timestamp": "2025-06-04T09:58:43.613Z"
+    },
+    {
+      "category": "documentation",
+      "name": "Environment Variables",
+      "status": "pass",
+      "message": "Documentation section exists",
+      "severity": "info",
+      "timestamp": "2025-06-04T09:58:43.614Z"
+    },
+    {
+      "category": "documentation",
+      "name": "Docker",
+      "status": "pass",
+      "message": "Documentation section exists",
+      "severity": "info",
+      "timestamp": "2025-06-04T09:58:43.614Z"
+    },
+    {
+      "category": "documentation",
+      "name": "Production Deployment",
+      "status": "pass",
+      "message": "Documentation section exists",
+      "severity": "info",
+      "timestamp": "2025-06-04T09:58:43.614Z"
+    },
+    {
+      "category": "documentation",
+      "name": "API Docs",
+      "status": "pass",
+      "message": "API documentation available",
+      "severity": "info",
+      "timestamp": "2025-06-04T09:58:43.615Z"
+    },
+    {
+      "category": "performance",
+      "name": "API Availability",
+      "status": "fail",
+      "message": "API not accessible: Request failed with status code 429",
+      "severity": "info",
+      "timestamp": "2025-06-04T09:58:43.619Z"
+    }
+  ]
+}

@@ -1,0 +1,269 @@
+{
+  "timestamp": "2025-06-04T09:54:23.753Z",
+  "score": 0,
+  "summary": {
+    "critical": 0,
+    "high": 9,
+    "medium": 4,
+    "low": 0,
+    "passed": 18
+  },
+  "findings": {
+    "critical": [],
+    "high": [
+      {
+        "severity": "high",
+        "title": "Weak Password Detected",
+        "description": "Potential weak password \"password\" found in environment file",
+        "recommendation": "Use strong, randomly generated passwords",
+        "file": ".env",
+        "timestamp": "2025-06-04T09:54:21.623Z"
+      },
+      {
+        "severity": "high",
+        "title": "Weak Password Detected",
+        "description": "Potential weak password \"admin\" found in environment file",
+        "recommendation": "Use strong, randomly generated passwords",
+        "file": ".env",
+        "timestamp": "2025-06-04T09:54:21.623Z"
+      },
+      {
+        "severity": "high",
+        "title": "Weak Password Detected",
+        "description": "Potential weak password \"password\" found in environment file",
+        "recommendation": "Use strong, randomly generated passwords",
+        "file": ".env.production",
+        "timestamp": "2025-06-04T09:54:21.635Z"
+      },
+      {
+        "severity": "high",
+        "title": "Weak Password Detected",
+        "description": "Potential weak password \"admin\" found in environment file",
+        "recommendation": "Use strong, randomly generated passwords",
+        "file": ".env.production",
+        "timestamp": "2025-06-04T09:54:21.636Z"
+      },
+      {
+        "severity": "high",
+        "title": "Weak Password Detected",
+        "description": "Potential weak password \"password\" found in environment file",
+        "recommendation": "Use strong, randomly generated passwords",
+        "file": ".env.k8s",
+        "timestamp": "2025-06-04T09:54:21.647Z"
+      },
+      {
+        "severity": "high",
+        "title": "Weak Password Detected",
+        "description": "Potential weak password \"admin\" found in environment file",
+        "recommendation": "Use strong, randomly generated passwords",
+        "file": ".env.k8s",
+        "timestamp": "2025-06-04T09:54:21.648Z"
+      },
+      {
+        "severity": "high",
+        "title": "Sensitive File World Readable",
+        "description": "File \".env\" is readable by others",
+        "recommendation": "Change permissions: chmod 600",
+        "file": ".env",
+        "timestamp": "2025-06-04T09:54:23.706Z"
+      },
+      {
+        "severity": "high",
+        "title": "Sensitive File World Readable",
+        "description": "File \".env.production\" is readable by others",
+        "recommendation": "Change permissions: chmod 600",
+        "file": ".env.production",
+        "timestamp": "2025-06-04T09:54:23.707Z"
+      },
+      {
+        "severity": "high",
+        "title": "Hardcoded Secret",
+        "description": "Potential hardcoded secret found",
+        "recommendation": "Move secrets to environment variables",
+        "file": "src\\utils\\seed.ts",
+        "timestamp": "2025-06-04T09:54:23.726Z"
+      }
+    ],
+    "medium": [
+      {
+        "severity": "medium",
+        "title": "Sensitive File Not Ignored",
+        "description": "\"private.key\" should be in .gitignore",
+        "recommendation": "Add to .gitignore to prevent accidental commits",
+        "file": ".gitignore",
+        "timestamp": "2025-06-04T09:54:23.709Z"
+      },
+      {
+        "severity": "medium",
+        "title": "Sensitive File Not Ignored",
+        "description": "\"server.key\" should be in .gitignore",
+        "recommendation": "Add to .gitignore to prevent accidental commits",
+        "file": ".gitignore",
+        "timestamp": "2025-06-04T09:54:23.710Z"
+      },
+      {
+        "severity": "medium",
+        "title": "Missing compression Middleware",
+        "description": "compression middleware not found",
+        "recommendation": "Consider adding compression for better security",
+        "file": "",
+        "timestamp": "2025-06-04T09:54:23.731Z"
+      },
+      {
+        "severity": "medium",
+        "title": "Missing Dockerignore Pattern",
+        "description": "Consider adding \"*.key\" to .dockerignore",
+        "recommendation": "Prevent sensitive files from being included in image",
+        "file": "",
+        "timestamp": "2025-06-04T09:54:23.735Z"
+      }
+    ],
+    "low": [],
+    "info": [
+      {
+        "severity": "info",
+        "title": "Strong JWT Secret",
+        "description": "JWT secret meets minimum length requirements",
+        "recommendation": "",
+        "file": ".env",
+        "timestamp": "2025-06-04T09:54:21.625Z"
+      },
+      {
+        "severity": "info",
+        "title": "Strong JWT Secret",
+        "description": "JWT secret meets minimum length requirements",
+        "recommendation": "",
+        "file": ".env.production",
+        "timestamp": "2025-06-04T09:54:21.637Z"
+      },
+      {
+        "severity": "info",
+        "title": "Strong JWT Secret",
+        "description": "JWT secret meets minimum length requirements",
+        "recommendation": "",
+        "file": ".env.k8s",
+        "timestamp": "2025-06-04T09:54:21.649Z"
+      },
+      {
+        "severity": "info",
+        "title": "No Known Vulnerabilities",
+        "description": "Dependencies appear to be secure",
+        "recommendation": "",
+        "file": "",
+        "timestamp": "2025-06-04T09:54:23.701Z"
+      },
+      {
+        "severity": "info",
+        "title": "Security Package Installed",
+        "description": "Security package \"helmet\" is installed",
+        "recommendation": "",
+        "file": "",
+        "timestamp": "2025-06-04T09:54:23.702Z"
+      },
+      {
+        "severity": "info",
+        "title": "Security Package Installed",
+        "description": "Security package \"express-rate-limit\" is installed",
+        "recommendation": "",
+        "file": "",
+        "timestamp": "2025-06-04T09:54:23.702Z"
+      },
+      {
+        "severity": "info",
+        "title": "Security Package Installed",
+        "description": "Security package \"bcryptjs\" is installed",
+        "recommendation": "",
+        "file": "",
+        "timestamp": "2025-06-04T09:54:23.703Z"
+      },
+      {
+        "severity": "info",
+        "title": "Security Package Installed",
+        "description": "Security package \"jsonwebtoken\" is installed",
+        "recommendation": "",
+        "file": "",
+        "timestamp": "2025-06-04T09:54:23.704Z"
+      },
+      {
+        "severity": "info",
+        "title": "Security Package Installed",
+        "description": "Security package \"cors\" is installed",
+        "recommendation": "",
+        "file": "",
+        "timestamp": "2025-06-04T09:54:23.705Z"
+      },
+      {
+        "severity": "info",
+        "title": "Strong SSL Protocols",
+        "description": "SSL configuration uses strong protocols",
+        "recommendation": "",
+        "file": "",
+        "timestamp": "2025-06-04T09:54:23.712Z"
+      },
+      {
+        "severity": "info",
+        "title": "HSTS Enabled",
+        "description": "HTTP Strict Transport Security is configured",
+        "recommendation": "",
+        "file": "",
+        "timestamp": "2025-06-04T09:54:23.713Z"
+      },
+      {
+        "severity": "info",
+        "title": "helmet Middleware",
+        "description": "helmet security middleware is configured",
+        "recommendation": "",
+        "file": "",
+        "timestamp": "2025-06-04T09:54:23.729Z"
+      },
+      {
+        "severity": "info",
+        "title": "cors Middleware",
+        "description": "cors security middleware is configured",
+        "recommendation": "",
+        "file": "",
+        "timestamp": "2025-06-04T09:54:23.730Z"
+      },
+      {
+        "severity": "info",
+        "title": "rate limiting Middleware",
+        "description": "rate limiting security middleware is configured",
+        "recommendation": "",
+        "file": "",
+        "timestamp": "2025-06-04T09:54:23.731Z"
+      },
+      {
+        "severity": "info",
+        "title": "Docker Non-Root User",
+        "description": "Container uses non-root user",
+        "recommendation": "",
+        "file": "",
+        "timestamp": "2025-06-04T09:54:23.733Z"
+      },
+      {
+        "severity": "info",
+        "title": "Multi-Stage Build",
+        "description": "Using multi-stage Docker build for security",
+        "recommendation": "",
+        "file": "",
+        "timestamp": "2025-06-04T09:54:23.734Z"
+      },
+      {
+        "severity": "info",
+        "title": "Dockerignore Security",
+        "description": "Sensitive pattern \".env\" is ignored",
+        "recommendation": "",
+        "file": "",
+        "timestamp": "2025-06-04T09:54:23.735Z"
+      },
+      {
+        "severity": "info",
+        "title": "Dockerignore Security",
+        "description": "Sensitive pattern \"node_modules\" is ignored",
+        "recommendation": "",
+        "file": "",
+        "timestamp": "2025-06-04T09:54:23.736Z"
+      }
+    ]
+  }
+}
