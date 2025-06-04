@@ -1,4 +1,5 @@
 import express from 'express';
+import { createServer } from 'http';
 import cors from 'cors';
 import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
@@ -8,6 +9,7 @@ import Database from './config/database';
 import RedisClient from './config/redis';
 import RabbitMQClient from './config/rabbitmq';
 import { setupSwagger } from './config/swagger';
+import SocketService from './services/socketService';
 
 import authRoutes from './routes/authRoutes';
 import roomRoutes from './routes/roomRoutes';
@@ -19,16 +21,19 @@ dotenv.config();
 
 class App {
   public app: express.Application;
+  public server: any;
   private port: number;
 
   constructor() {
     this.app = express();
+    this.server = createServer(this.app);
     this.port = parseInt(process.env.PORT || '3000');
     
     this.initializeMiddlewares();
     this.initializeRoutes();
     this.initializeSwagger();
     this.initializeErrorHandling();
+    this.initializeSocketIO();
   }
 
   private initializeMiddlewares(): void {
@@ -103,10 +108,15 @@ class App {
   private initializeSwagger(): void {
     setupSwagger(this.app as any);
   }
-
   private initializeErrorHandling(): void {
     this.app.use(notFoundHandler);
     this.app.use(errorHandler);
+  }
+
+  private initializeSocketIO(): void {
+    const socketService = SocketService.getInstance();
+    socketService.initialize(this.server);
+    console.log('✅ Socket.io initialized');
   }
 
   private async initializeDatabase(): Promise<void> {
@@ -194,12 +204,12 @@ class App {
       await this.initializeDatabase();
       await this.initializeRedis();
       await this.initializeRabbitMQ();
-      
-      this.setupGracefulShutdown();
+        this.setupGracefulShutdown();
 
-      this.app.listen(this.port, () => {
+      this.server.listen(this.port, () => {
         console.log('\n🚀 Chat API Server Started Successfully!');
         console.log(`📍 Server running on port ${this.port}`);
+        console.log(`🔌 Socket.io WebSocket server ready`);
         console.log(`📚 API Documentation: http://localhost:${this.port}/api-docs`);
         console.log(`🏥 Health Check: http://localhost:${this.port}/health`);
         console.log(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`);

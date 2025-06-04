@@ -3,10 +3,12 @@ import Room from '../models/Room';
 import { CreateMessageDto, UpdateMessageDto, MessageQuery } from '../types';
 import RedisClient from '../config/redis';
 import RabbitMQClient from '../config/rabbitmq';
+import SocketService from './socketService';
 
 class MessageService {
   private redisClient = RedisClient.getInstance();
   private rabbitMQClient = RabbitMQClient.getInstance();
+  private socketService = SocketService.getInstance();
 
   public async sendMessage(messageData: CreateMessageDto, senderId: string) {
     const room = await Room.findById(messageData.room);
@@ -22,11 +24,20 @@ class MessageService {
     const message = new Message({
       ...messageData,
       sender: senderId,
-    });
-
-    await message.save();
+    });    await message.save();
     await message.populate('sender', 'username firstName lastName avatar');
     await message.populate('room', 'name');
+
+    // Emit real-time message to room members
+    this.socketService.emitToRoom(messageData.room, 'new_message', {
+      _id: message._id,
+      content: message.content,
+      messageType: message.messageType,
+      sender: message.sender,
+      room: message.room,
+      createdAt: message.createdAt,
+      updatedAt: message.updatedAt,
+    });
 
     await this.publishMessageToRedis(message);
     await this.publishMessageToRabbitMQ(message);
